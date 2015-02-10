@@ -18,7 +18,7 @@ Requires:       python-pillow
 Requires:       PyOpenGL
 
 %description
-This package uses ICAT4 at SNS to find NeXus files.
+Powder and single crystal diffraction Rietveld refinement
 
 %prep
 #%setup -n %{name}

@@ -8,7 +8,7 @@ URL:            http://github.com/peterfpeterson/finddata/
 #Source:	        %{name}.tar.gz
 #BuildArch:      noarch
 
-Requires:       python
+Requires:       python >= 2.7
 Requires:       wxPython
 Requires:       python-matplotlib
 Requires:       numpy

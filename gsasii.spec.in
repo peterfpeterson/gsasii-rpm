@@ -4,7 +4,7 @@ Release:        1%{?dist}
 Summary:        General Structure Analysis System-II
 
 License:        All rights reserved
-URL:            http://github.com/peterfpeterson/finddata/
+URL:            https://subversion.xor.aps.anl.gov/trac/pyGSAS
 #Source:	        %{name}.tar.gz
 #BuildArch:      noarch
 

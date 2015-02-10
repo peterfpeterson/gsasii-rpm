@@ -1,7 +1,7 @@
 Name:           gsasii
 Version:        0.2.0r1643
 Release:        1%{?dist}
-Summary:        Find data files using ICAT
+Summary:        General Structure Analysis System-II
 
 License:        All rights reserved
 URL:            http://github.com/peterfpeterson/finddata/
@@ -13,7 +13,8 @@ Requires:       wxPython
 Requires:       python-matplotlib
 Requires:       numpy
 Requires:       scipy
-Requires:       python-pillow # this is new version of python imaging library
+# pillow is new version of python imaging library
+Requires:       python-pillow
 Requires:       PyOpenGL
 
 %description

@@ -12,8 +12,10 @@ Summary:        General Structure Analysis System-II
 
 License:        All rights reserved
 URL:            https://subversion.xor.aps.anl.gov/trac/pyGSAS
-#Source:            %{name}.tar.gz
-#BuildArch:      noarch
+Source:         %{name}-$version.tar.gz
+
+BuildRequires:  scons numpy-f2py
+Prefix:         /usr/local/gsasii
 
 Requires:       python >= 2.7
 Requires:       wxPython
@@ -28,10 +30,11 @@ Requires:       PyOpenGL
 Powder and single crystal diffraction Rietveld refinement
 
 %prep
-#%setup -n %{name}
+%setup -n %{name}
 
 %build
-#exit 0
+cd fsource
+scons
 
 %install
 #rm -rf $RPM_BUILD_ROOT
@@ -42,7 +45,8 @@ Powder and single crystal diffraction Rietveld refinement
 
 %clean
 #exit 0
-
+"""
+"""
 %files
 #%defattr(-,root,root,-)
 #%doc README.md
@@ -50,7 +54,17 @@ Powder and single crystal diffraction Rietveld refinement
 #%{_bindir}/finddata
 #%{_sysconfdir}/bash_completion.d/finddata.bashcomplete
 
-%changelog
 """
+
+def getChangelog():
+    # svn log -l 10
+    return """
+%changelog"""
+
 from string import Template
-print Template(spec_in).safe_substitute(version=version)
+handle = file('gsasii.spec', 'w')
+
+spec = Template(spec_in).safe_substitute(version=version)
+spec += getChangelog()
+
+handle.write(spec)

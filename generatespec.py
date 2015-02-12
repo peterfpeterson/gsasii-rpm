@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import GSASII, GSASIIpath
-version = "%sr%s" % (GSASII.__version__,str(GSASIIpath.GetVersionNumber()))
+version = "%s.%s" % (GSASII.__version__,str(GSASIIpath.GetVersionNumber()))
 
 
 spec_in= \
@@ -14,8 +14,8 @@ License:        All rights reserved
 URL:            https://subversion.xor.aps.anl.gov/trac/pyGSAS
 Source:         %{name}-$version.tar.gz
 
-BuildRequires:  scons numpy-f2py
-Prefix:         /usr/local/gsasii
+BuildRequires:  scons gcc-gfortran numpy-f2py
+Prefix:         /opt/gsasii
 
 Requires:       python >= 2.7
 Requires:       wxPython
@@ -29,6 +29,9 @@ Requires:       PyOpenGL
 %description
 Powder and single crystal diffraction Rietveld refinement
 
+%define debug_packages  %{nil}
+%define debug_package %{nil}
+
 %prep
 %setup -n %{name}
 
@@ -37,34 +40,35 @@ cd fsource
 scons
 
 %install
-#rm -rf $RPM_BUILD_ROOT
-#mkdir -p %{buildroot}%{_bindir}
-#install -m 755 %{_builddir}/%{name}/finddata %{buildroot}%{_bindir}/finddata
-#mkdir -p %{buildroot}%{_sysconfdir}/bash_completion.d
-#install -m 644 %{_builddir}/%{name}/finddata.bashcomplete %{buildroot}%{_sysconfdir}/bash_completion.d/finddata.bashcomplete
+rm -rf $RPM_BUILD_ROOT
+mkdir -p %{buildroot}%{prefix}
+cp -R %{_builddir}/%{name}/* %{buildroot}%{prefix}
 
 %clean
-#exit 0
-"""
-"""
-%files
-#%defattr(-,root,root,-)
-#%doc README.md
-#%doc LICENSE.txt
-#%{_bindir}/finddata
-#%{_sysconfdir}/bash_completion.d/finddata.bashcomplete
+exit 0
 
 """
 
 def getChangelog():
     # svn log -l 10
     return """
-%changelog"""
+%changelog
+
+"""
+
+def getFiles():
+    return """
+%files
+%defattr(-,root,root,-)
+%{prefix}
+
+"""
 
 from string import Template
 handle = file('gsasii.spec', 'w')
 
 spec = Template(spec_in).safe_substitute(version=version)
 spec += getChangelog()
+spec += getFiles()
 
 handle.write(spec)

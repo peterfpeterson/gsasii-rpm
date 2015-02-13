@@ -43,6 +43,7 @@ scons
 rm -rf $RPM_BUILD_ROOT
 mkdir -p %{buildroot}%{prefix}
 cp -R %{_builddir}/%{name}/* %{buildroot}%{prefix}
+chmod 755 %{buildroot}%{prefix}/GSASII.py
 
 %clean
 exit 0
@@ -64,7 +65,7 @@ def getFiles():
 
 """
 
-handle = file('gsas.version', 'w')
+handle = file('gsasii.version', 'w')
 handle.write(version)
 handle.close()
 

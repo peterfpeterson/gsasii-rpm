@@ -13,6 +13,8 @@ TAR_UNPACKED=${SCRIPT_DIR}/gsasii
 URL="https://subversion.xray.aps.anl.gov/pyGSAS"
 VERSION_FILE=${SCRIPT_DIR}/gsasii.version
 RPM_BIN_DIR=${HOME}/rpmbuild/RPMS/
+ARCH=$(uname -m)
+echo ${ARCH}
 
 ##############################################################
 # script
@@ -62,9 +64,9 @@ if [ ! -f ${TAR_FILE} ]; then
   tar czf ${TAR_FILE} ${TAR_UNPACKED}
 fi
 
-RPM=$(find ${RPM_BIN_DIR} -name gsasii-${GSAS_VERSION}-\*.\*.\*.rpm)
+RPM=$(find ${RPM_BIN_DIR} -name gsasii-${GSAS_VERSION}-\*.\*.${ARCH}.rpm)
 
-SCRIPT_DIR_RPM_EXISTS=$(find ${SCRIPT_DIR} -maxdepth 1 -name gsasii-${GSAS_VERSION}-\*.\*.\*.rpm | wc -l)
+SCRIPT_DIR_RPM_EXISTS=$(find ${SCRIPT_DIR} -maxdepth 1 -name gsasii-${GSAS_VERSION}-\*.\*.${ARCH}.rpm | wc -l)
 if [ "${SCRIPT_DIR_RPM_EXISTS}" -eq 0 ]; then
   # make the rpm if it doesn't exist
   if [ ! ${RPM} ]; then
@@ -73,11 +75,11 @@ if [ "${SCRIPT_DIR_RPM_EXISTS}" -eq 0 ]; then
   fi
 
   # copy it into this directory
-  RPM=$(find ${RPM_BIN_DIR} -name gsasii-${GSAS_VERSION}-\*.\*.\*.rpm)
+  RPM=$(find ${RPM_BIN_DIR} -name gsasii-${GSAS_VERSION}-\*.\*.${ARCH}.rpm)
   echo "cp ${RPM} ${SCRIPT_DIR}"
   cp ${RPM} ${SCRIPT_DIR}
 
-  RPM=$(find ${SCRIPT_DIR} -maxdepth 1 -name gsasii-${GSAS_VERSION}-\*.\*.\*.rpm)
+  RPM=$(find ${SCRIPT_DIR} -maxdepth 1 -name gsasii-${GSAS_VERSION}-\*.\*.${ARCH}.rpm)
   echo "created ${RPM}"
 
   echo "scp ${RPM} ${1}"

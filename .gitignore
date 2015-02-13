@@ -5,7 +5,6 @@ gsasii.spec
 gsasii.version
 gsasii-*.tar.gz
 gsasii-*.rpm
-rpmbuild
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

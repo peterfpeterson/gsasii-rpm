@@ -5,7 +5,7 @@
 # the tarball, and running rpmbuild.
 ##############################################################
 # constants
-SCRIPT_DIR=`pwd`
+SCRIPT_DIR=$(realpath `dirname ${0}`)
 SVN_DIR=${SCRIPT_DIR}/gsasii-svn
 SVN=`which svn`
 PYTHON=`which python`

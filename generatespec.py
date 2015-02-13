@@ -79,4 +79,4 @@ spec += getChangelog()
 spec += getFiles()
 
 handle.write(spec)
-handle.close
+handle.close()

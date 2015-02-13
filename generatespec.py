@@ -64,6 +64,10 @@ def getFiles():
 
 """
 
+handle = file('gsas.version', 'w')
+handle.write(version)
+handle.close()
+
 from string import Template
 handle = file('gsasii.spec', 'w')
 
@@ -72,3 +76,4 @@ spec += getChangelog()
 spec += getFiles()
 
 handle.write(spec)
+handle.close

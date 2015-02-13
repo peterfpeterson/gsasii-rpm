@@ -1,3 +1,8 @@
+# build and svn stuff
+gsasii-svn
+gsasii
+gsasii.spec
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

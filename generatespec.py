@@ -14,7 +14,7 @@ License:        All rights reserved
 URL:            https://subversion.xor.aps.anl.gov/trac/pyGSAS
 Source:         %{name}-$version.tar.gz
 
-BuildRequires:  scons gcc-gfortran numpy-f2py
+BuildRequires:  scons gcc-gfortran numpy-f2py make python-sphinx
 Prefix:         /opt/gsasii
 
 Requires:       python >= 2.7
@@ -38,6 +38,8 @@ Powder and single crystal diffraction Rietveld refinement
 %build
 cd fsource
 scons
+cd ../sphinxdocs
+make html
 
 %install
 rm -rf $RPM_BUILD_ROOT

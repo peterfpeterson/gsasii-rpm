@@ -45,6 +45,8 @@ if [ ! -f ${TAR_FILE} ]; then
   rm -f ${TAR_UNPACKED}/PyOpenGL-3.0.2a5.zip
   # build from source during packaging
   rm -rf ${TAR_UNPACKED}/bin*
+  # build during packaging
+  rm -rf ${TAR_UNPACKED}/sphinxdocs/build/*
   # these currently require /Users/toby/build/cctbx_build/bin/python
   rm -f ${TAR_UNPACKED}/testinp/genhkltest.py
   rm -f ${TAR_UNPACKED}/testinp/gensgtbx.py

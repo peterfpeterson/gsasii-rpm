@@ -12,10 +12,14 @@ PYTHON=`which python`
 TAR_UNPACKED=${SCRIPT_DIR}/gsasii
 URL="https://subversion.xray.aps.anl.gov/pyGSAS"
 VERSION_FILE=${SCRIPT_DIR}/gsasii.version
-RPM_BIN_DIR=${HOME}/rpmbuild/RPMS/x86_64
+RPM_BIN_DIR=${HOME}/rpmbuild/RPMS/
 
 ##############################################################
 # script
+if [ "$#" -lt 1 ]; then
+  echo "Should specify fully qualified scp destination"
+  exit -1
+fi
 
 if [ -d ${SVN_DIR} ]; then
   # cd ${SVN_DIR}
@@ -36,6 +40,7 @@ GSAS_VERSION=$(cat ${VERSION_FILE})
 echo "gsasii version ${GSAS_VERSION}"
 TAR_FILE="gsasii-${GSAS_VERSION}.tar.gz"
 
+# create the tarball
 if [ ! -f ${TAR_FILE} ]; then
   echo "creating tarball"
   rm -rf ${TAR_UNPACKED}
@@ -57,8 +62,27 @@ if [ ! -f ${TAR_FILE} ]; then
   tar czf ${TAR_FILE} ${TAR_UNPACKED}
 fi
 
-echo "rpmbuild -bb gsasii.spec --define \"_sourcedir ${SCRIPT_DIR}\""
-rpmbuild -bb gsasii.spec --define "_sourcedir ${SCRIPT_DIR}"
+RPM=$(find ${RPM_BIN_DIR} -name gsasii-${GSAS_VERSION}-\*.\*.\*.rpm)
 
-echo "mv ${RPM_BIN_DIR}/gsasii-${GSAS_VERSION}*-*.*.*.rpm ${SCRIPT_DIR}"
-mv ${RPM_BIN_DIR}/gsasii-${GSAS_VERSION}*-*.*.*.rpm ${SCRIPT_DIR}
+SCRIPT_DIR_RPM_EXISTS=$(find ${SCRIPT_DIR} -maxdepth 1 -name gsasii-${GSAS_VERSION}-\*.\*.\*.rpm | wc -l)
+if [ "${SCRIPT_DIR_RPM_EXISTS}" -eq 0 ]; then
+  # make the rpm if it doesn't exist
+  if [ ! ${RPM} ]; then
+    echo "rpmbuild -bb gsasii.spec --define \"_sourcedir ${SCRIPT_DIR}\""
+    rpmbuild -bb gsasii.spec --define "_sourcedir ${SCRIPT_DIR}"
+  fi
+
+  # copy it into this directory
+  RPM=$(find ${RPM_BIN_DIR} -name gsasii-${GSAS_VERSION}-\*.\*.\*.rpm)
+  echo "cp ${RPM} ${SCRIPT_DIR}"
+  cp ${RPM} ${SCRIPT_DIR}
+
+  RPM=$(find ${SCRIPT_DIR} -maxdepth 1 -name gsasii-${GSAS_VERSION}-\*.\*.\*.rpm)
+  echo "created ${RPM}"
+
+  echo "scp ${RPM} ${1}"
+  scp ${RPM} ${1}
+else
+  echo "rpm was not created - doing nothing"
+fi
+

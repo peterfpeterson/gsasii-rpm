@@ -20,6 +20,7 @@ Prefix:         /opt/gsasii
 Requires:       python >= 2.7
 Requires:       wxPython
 Requires:       python-matplotlib
+Requires:       python-matplotlib-wx
 Requires:       numpy
 Requires:       scipy
 # pillow is new version of python imaging library

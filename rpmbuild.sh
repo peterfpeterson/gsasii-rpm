@@ -23,11 +23,14 @@ if [ "$#" -lt 1 ]; then
   exit -1
 fi
 
+echo "cd ${SCRIPT_DIR}"
+cd ${SCRIPT_DIR}
+
 if [ -d ${SVN_DIR} ]; then
-  # cd ${SVN_DIR}
+  cd ${SVN_DIR}
   echo "${SVN} update ${SVN_DIR}"
   ${SVN} update ${SVN_DIR}
-  # cd -
+  cd -
 else
   echo "mkdir -p ${SVN_DIR}"
   mkdir -p ${SVN_DIR}

@@ -33,7 +33,6 @@ if [ "$#" -eq 1 ]; then
   COPY_TO="${1}"
 fi
 echo ${COPY_TO}
-exit
 
 if [ -d ${SVN_DIR} ]; then
   cd ${SVN_DIR}

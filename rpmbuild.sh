@@ -18,13 +18,22 @@ echo ${ARCH}
 
 ##############################################################
 # script
-if [ "$#" -lt 1 ]; then
-  echo "Should specify fully qualified scp destination"
-  exit -1
-fi
-
 echo "cd ${SCRIPT_DIR}"
 cd ${SCRIPT_DIR}
+
+if [ -f COPY_TO ]; then
+  COPY_TO=$(cat COPY_TO)
+else
+  if [ "$#" -lt 1 ]; then
+    echo "Should specify fully qualified scp destination"
+    exit -1
+  fi
+fi
+if [ "$#" -eq 1 ]; then
+  COPY_TO="${1}"
+fi
+echo ${COPY_TO}
+exit
 
 if [ -d ${SVN_DIR} ]; then
   cd ${SVN_DIR}
@@ -85,8 +94,8 @@ if [ "${SCRIPT_DIR_RPM_EXISTS}" -eq 0 ]; then
   RPM=$(find ${SCRIPT_DIR} -maxdepth 1 -name gsasii-${GSAS_VERSION}-\*.\*.${ARCH}.rpm)
   echo "created ${RPM}"
 
-  echo "scp ${RPM} ${1}"
-  scp ${RPM} ${1}
+  echo "scp ${RPM} ${COPY_TO}"
+  scp ${RPM} ${COPY_TO}
 else
   echo "rpm was not created - doing nothing"
 fi

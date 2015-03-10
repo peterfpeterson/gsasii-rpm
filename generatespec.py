@@ -1,7 +1,7 @@
 #!/usr/bin/env python
-import GSASII, GSASIIpath
-version = "%s.%s" % (GSASII.__version__,str(GSASIIpath.GetVersionNumber()))
-
+from GSASII import __version__ as gsas_version
+from GSASIIpath import GetVersionNumber as gsas_svn_number
+version = "%s.%s" % (gsas_version,str(gsas_svn_number()))
 
 spec_in= \
 """

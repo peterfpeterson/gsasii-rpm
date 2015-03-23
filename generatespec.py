@@ -39,7 +39,7 @@ Powder and single crystal diffraction Rietveld refinement
 %build
 cd fsource
 scons
-cd ../sphinxdocs
+cd ../doc
 make html
 
 %install

@@ -65,7 +65,7 @@ if [ ! -f ${TAR_FILE} ]; then
   # build from source during packaging
   rm -rf ${TAR_UNPACKED}/bin*
   # build during packaging
-  rm -rf ${TAR_UNPACKED}/doc/build/*
+  #rm -rf ${TAR_UNPACKED}/doc/build/*
   # these currently require /Users/toby/build/cctbx_build/bin/python
   rm -f ${TAR_UNPACKED}/testinp/genhkltest.py
   rm -f ${TAR_UNPACKED}/testinp/gensgtbx.py
@@ -99,4 +99,3 @@ if [ "${SCRIPT_DIR_RPM_EXISTS}" -eq 0 ]; then
 else
   echo "rpm was not created - doing nothing"
 fi
-

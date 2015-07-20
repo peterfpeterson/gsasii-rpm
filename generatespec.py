@@ -39,8 +39,8 @@ Powder and single crystal diffraction Rietveld refinement
 %build
 cd fsource
 scons
-cd ../doc
-make html
+#cd ../doc
+#make html
 
 %install
 rm -rf $RPM_BUILD_ROOT

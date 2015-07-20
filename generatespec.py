@@ -14,7 +14,7 @@ License:        All rights reserved
 URL:            https://subversion.xor.aps.anl.gov/trac/pyGSAS
 Source:         %{name}-$version.tar.gz
 
-BuildRequires:  scons gcc-gfortran numpy-f2py make python-sphinx
+BuildRequires:  scons gcc-gfortran numpy-f2py make python-sphinx python-matplotlib-wx
 Prefix:         /opt/gsasii
 
 Requires:       python >= 2.7
